@@ -53,3 +53,10 @@ constexpr int   GOBLIN_CHIEF_ATTACK         = 12;
 constexpr int   GOBLIN_CHIEF_DEFENSE        = 5;
 constexpr int   GOBLIN_CHIEF_EXP_REWARD     = 80;
 constexpr int   GOBLIN_CHIEF_GOLD_REWARD    = 15;
+
+// Stone Golem stats
+constexpr int   STONE_GOLEM_HP             = 80;
+constexpr int   STONE_GOLEM_ATTACK         = 18;
+constexpr int   STONE_GOLEM_DEFENSE        = 10;
+constexpr int   STONE_GOLEM_EXP_REWARD     = 150;
+constexpr int   STONE_GOLEM_GOLD_REWARD    = 25;
