@@ -38,3 +38,10 @@ constexpr int   SKELETON_ATTACK         = 10;
 constexpr int   SKELETON_DEFENSE        = 4;
 constexpr int   SKELETON_EXP_REWARD     = 25;
 constexpr int   SKELETON_GOLD_REWARD    = 4;
+
+// Troll stats
+constexpr int   TROLL_HP             = 40;
+constexpr int   TROLL_ATTACK         = 14;
+constexpr int   TROLL_DEFENSE        = 6;
+constexpr int   TROLL_EXP_REWARD     = 60;
+constexpr int   TROLL_GOLD_REWARD    = 10;
