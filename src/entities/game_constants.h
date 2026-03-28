@@ -45,3 +45,11 @@ constexpr int   TROLL_ATTACK         = 14;
 constexpr int   TROLL_DEFENSE        = 6;
 constexpr int   TROLL_EXP_REWARD     = 60;
 constexpr int   TROLL_GOLD_REWARD    = 10;
+
+// Boss stats
+// Goblin Chiefe stats
+constexpr int   GOBLIN_CHIEF_HP             = 50;
+constexpr int   GOBLIN_CHIEF_ATTACK         = 12;
+constexpr int   GOBLIN_CHIEF_DEFENSE        = 5;
+constexpr int   GOBLIN_CHIEF_EXP_REWARD     = 80;
+constexpr int   GOBLIN_CHIEF_GOLD_REWARD    = 15;
