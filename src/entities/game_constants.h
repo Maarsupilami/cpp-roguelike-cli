@@ -21,3 +21,13 @@ constexpr int   ROGUE_HP                = 90;
 constexpr int   ROGUE_ATTACK            = 14;
 constexpr int   ROGUE_DEFENSE           = 5;
 constexpr float ROGUE_CRIT              = 0.3f;
+
+/*
+    Enemy stats
+*/
+// Goblin stats
+constexpr int   GOBLIN_HP               = 20;
+constexpr int   GOBLIN_ATTACK           = 8;
+constexpr int   GOBLIN_DEFENSE          = 2;
+constexpr int   GOBLIN_EXP_REWARD       = 30;
+constexpr int   GOBLIN_GOLD_REWARD      = 5;
