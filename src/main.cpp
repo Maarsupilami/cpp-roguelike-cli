@@ -2,6 +2,7 @@
 #include <ctime>
 #include "enemies/goblin.h"
 #include "classes/rogue.h"
+#include "game_constants.h"
 
 int main(int argc, char *argv[])
 {
@@ -34,6 +35,8 @@ int main(int argc, char *argv[])
 
         if (!goblin.isAlive()) {
             std::cout << "You won!!!\n";
+            player.addExperience(goblin.getExpReward());
+            std::cout << "You have " << player.getExperience() << " XP\n";
         }
 
     }

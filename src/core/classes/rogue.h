@@ -4,6 +4,17 @@
 #include <cstdlib>
 
 class Rogue : public Player {
+    private:
+        void levelUp() override {
+            level++;
+            maxHp += 8;
+            hp = maxHp;
+            attackPower += 3;
+            defense += 1;
+            critChance *= 1.05;
+            std::cout << name << " leveled up! Now level " << level << "!\n"; 
+        }
+
     public:
         Rogue(std::string name)
             :   Player(
@@ -18,6 +29,5 @@ class Rogue : public Player {
             float roll = (float)rand() / RAND_MAX;
             if (roll < critChance) return baseDamage * 2;
             return baseDamage;
-
         }
 };
