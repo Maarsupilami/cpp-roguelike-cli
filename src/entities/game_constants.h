@@ -31,3 +31,10 @@ constexpr int   GOBLIN_ATTACK           = 8;
 constexpr int   GOBLIN_DEFENSE          = 2;
 constexpr int   GOBLIN_EXP_REWARD       = 30;
 constexpr int   GOBLIN_GOLD_REWARD      = 5;
+
+// Skeleton stats
+constexpr int   SKELETON_HP             = 15;
+constexpr int   SKELETON_ATTACK         = 10;
+constexpr int   SKELETON_DEFENSE        = 4;
+constexpr int   SKELETON_EXP_REWARD     = 25;
+constexpr int   SKELETON_GOLD_REWARD    = 4;
