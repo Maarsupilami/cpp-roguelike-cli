@@ -60,3 +60,10 @@ constexpr int   STONE_GOLEM_ATTACK         = 18;
 constexpr int   STONE_GOLEM_DEFENSE        = 10;
 constexpr int   STONE_GOLEM_EXP_REWARD     = 150;
 constexpr int   STONE_GOLEM_GOLD_REWARD    = 25;
+
+// Dark Necromancer stats
+constexpr int   DARK_NECROMANCER_HP             = 120;
+constexpr int   DARK_NECROMANCER_ATTACK         = 22;
+constexpr int   DARK_NECROMANCER_DEFENSE        = 8;
+constexpr int   DARK_NECROMANCER_EXP_REWARD     = 300;
+constexpr int   DARK_NECROMANCER_GOLD_REWARD    = 50;
