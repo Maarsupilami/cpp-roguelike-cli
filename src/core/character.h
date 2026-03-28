@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>
 #include <algorithm>
+#include <cstdlib>
 
 class Character{
     protected:
@@ -46,6 +47,10 @@ class Character{
         int getMaxHp() const { return maxHp; }
         int getAttack() const { return attackPower; }
         int getDefense() const { return defense; }
+
+        virtual int calculateDamage(const Character& target) const {
+            return attackPower - (target.getDefense() / 2) + (rand() % 7 - 3);
+        }
 
         virtual ~Character() = default;
 };

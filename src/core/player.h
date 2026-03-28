@@ -5,7 +5,7 @@
 #include "item.h"
 
 class Player : public Character {
-    private:
+    protected:
         int experience;
         int gold;
         float critChance;
