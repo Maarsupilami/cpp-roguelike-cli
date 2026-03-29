@@ -1,5 +1,7 @@
 #pragma once
 #include "character.h"
+#include <algorithm>
+#include <memory>
 #include <vector>
 #include <string>
 #include "item.h"
@@ -16,7 +18,7 @@ class Player : public Character {
         int experience;
         unsigned int gold;
         float critChance;
-        std::vector<Item> inventory;
+        std::vector<std::unique_ptr<Item>> inventory;
 
         virtual void levelUp() {
             level++;
@@ -42,8 +44,8 @@ class Player : public Character {
             }
         }
 
-        void addItem(const Item& item){
-            inventory.push_back(item);
+        void addItem(std::unique_ptr<Item> item){
+            inventory.push_back(std::move(item));
         }
 
         unsigned int getGold() const { return gold; }
@@ -51,5 +53,5 @@ class Player : public Character {
             gold += amount;
         }
 
-        const std::vector<Item>& getInventory() const { return inventory; }
+        const std::vector<std::unique_ptr<Item>>& getInventory() const { return inventory; }
 };
