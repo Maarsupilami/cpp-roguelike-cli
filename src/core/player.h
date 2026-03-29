@@ -4,6 +4,13 @@
 #include <string>
 #include "item.h"
 
+enum class PlayerType {
+    WARRIOR,
+    MAGE,
+    ROGUE,
+    COUNT
+};
+
 class Player : public Character {
     protected:
         int experience;

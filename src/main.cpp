@@ -3,14 +3,17 @@
 #include <memory>
 #include <random>
 #include <utility>
+#include "classes/warrior.h"
+#include "classes/mage.h"
+#include "classes/rogue.h"
 #include "enemies/goblin.h"
 #include "enemies/skeleton.h"
 #include "enemies/troll.h"
 #include "enemies/goblin_chief.h"
 #include "enemies/stone_golem.h"
 #include "enemies/dark_necromancer.h"
-#include "classes/rogue.h"
 #include "enemy.h"
+#include "player.h"
 
 /*
  * NOTE: Raw pointer alternative (pre-C++11 / older compilers):
@@ -87,41 +90,77 @@ void fightEnemy(Player& player, std::unique_ptr<Enemy> enemy) {
             player.addExperience(enemy->getExpReward());
             std::cout << "You have " << player.getExperience() << " XP\n";
             player.addGold(enemy->getGoldReward());
-            std::cout << "You have " << player.getGold() << " Gold\n";
-        }
+std::unique_ptr<Player> choosePlayer() {
+    std::string name;
+    int choice = -1;
+    std::unique_ptr<Player> player;
+
+    
+    std::cout << "Please type your name: " << "\n";
+    std::cin >> name;
+
+    while (choice <= 0 || static_cast<PlayerType>(choice) >= PlayerType::COUNT) {
+        std::cout << "Please choose a cast!" << "\n";
+        std::cout << "\t1. Warrior" << "\n";
+        std::cout << "\t2. Mage" << "\n";
+        std::cout << "\t3. Rogue" << "\n";
+        std::cout << "Enter the corresponding number: ";
+        std::cin >> choice;
     }
+
+
+    PlayerType c = static_cast<PlayerType>(choice - 1);
+    switch (c) {
+        case PlayerType::WARRIOR:
+            player = std::make_unique<Warrior>(name);
+            break;
+        case PlayerType::MAGE:
+            player = std::make_unique<Mage>(name);
+            break;
+        case PlayerType::ROGUE:
+            player = std::make_unique<Rogue>(name);
+            break;
+        default:
+            player = std::make_unique<Rogue>(name);
+    }
+    return player;
 }
 
 int main(int argc, char *argv[])
 {
     srand(time(nullptr));
 
-    Rogue player("Maarsu");
+    std::unique_ptr<Player> player = choosePlayer();
 
     for (int i = 0; i < 2; i++) {
         
         auto enemy = getRandomEnemy();
-
-        fightEnemy(player, std::move(enemy));
-
-        if (!player.isAlive()) { break; }
+        fightEnemy(*player, std::move(enemy));
+        if (!player->isAlive()) { break; }
     }
-    if (player.isAlive()) {
-        fightEnemy(player, std::make_unique<GoblinChief>("Shaman"));
+    if (player->isAlive()) {
+        std::cout << "\n--- MINI-BOSS ---\n";
+        fightEnemy(*player, std::make_unique<GoblinChief>("Shaman"));
     }
 
+    if (player->isAlive()) {
+        std::cout << "\n========== DUNGEON LEVEL 2 ==========\n";
     for (int i = 0 ; i < 3; i++) {
         auto enemy = getRandomEnemy();
-
-        fightEnemy(player, std::move(enemy));
-        
-        if (!player.isAlive()) { break; }
+            fightEnemy(*player, std::move(enemy));
+            if (!player->isAlive()) { break; }
+        }
     }
-    if (player.isAlive()) {
-        fightEnemy(player, std::make_unique<StoneGolem>("Stone Golem"));
+    if (player->isAlive()) {
+        std::cout << "\n--- BOSS ---\n";
+        fightEnemy(*player, std::make_unique<StoneGolem>("Stone Golem"));
     }
-    if (player.isAlive()) {
-        fightEnemy(player, std::make_unique<DarkNecromancer>("Malachar"));
+    if (player->isAlive()) {
+        std::cout << "\n========== DUNGEON LEVEL 3 ==========\n";
+        fightEnemy(*player, std::make_unique<DarkNecromancer>("Malachar"));
+    }
+    if (player->isAlive()) {
+        std::cout << "\n========== YOU CLEARED THE DUNGEON! ==========\n";
     }
     return 0;
 }
