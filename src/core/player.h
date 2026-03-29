@@ -7,7 +7,7 @@
 class Player : public Character {
     protected:
         int experience;
-        int gold;
+        unsigned int gold;
         float critChance;
         std::vector<Item> inventory;
 
@@ -37,6 +37,11 @@ class Player : public Character {
 
         void addItem(const Item& item){
             inventory.push_back(item);
+        }
+
+        unsigned int getGold() const { return gold; }
+        void addGold(unsigned int amount) {
+            gold += amount;
         }
 
         const std::vector<Item>& getInventory() const { return inventory; }

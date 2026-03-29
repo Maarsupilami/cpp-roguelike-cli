@@ -1,6 +1,8 @@
 #pragma once
 #include "enemy.h"
 #include "game_constants.h"
+#include "skeleton.h"
+#include <memory>
 
 class DarkNecromancer : public Enemy{
     public:
@@ -13,4 +15,8 @@ class DarkNecromancer : public Enemy{
                     DARK_NECROMANCER_EXP_REWARD,
                     DARK_NECROMANCER_GOLD_REWARD
                 ) {}
+        
+        std::unique_ptr<Enemy> summonSkeleton() {
+            return std::make_unique<Skeleton>("Bone Warrior");
+        }
 };

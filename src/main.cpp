@@ -7,6 +7,8 @@
 #include "enemies/skeleton.h"
 #include "enemies/troll.h"
 #include "enemies/goblin_chief.h"
+#include "enemies/stone_golem.h"
+#include "enemies/dark_necromancer.h"
 #include "classes/rogue.h"
 #include "enemy.h"
 
@@ -50,6 +52,7 @@ std::unique_ptr<Enemy> getRandomEnemy() {
 
 void fightEnemy(Player& player, std::unique_ptr<Enemy> enemy) {
     int choice;
+    unsigned short turn = 0;
     while (player.isAlive() && enemy->isAlive()) {
         player.printHpBar();
         enemy->printHpBar();
@@ -61,6 +64,14 @@ void fightEnemy(Player& player, std::unique_ptr<Enemy> enemy) {
             enemy->takeDamage(player.calculateDamage(*enemy));
             if (enemy->isAlive()) {
                 player.takeDamage(enemy->calculateDamage(player));
+                if (++turn % 3 == 0) {
+                    auto* necro = dynamic_cast<DarkNecromancer*>(enemy.get());
+                    if (necro) {
+                        auto skeleton = necro->summonSkeleton();
+                        std::cout << "Dark Necromancer summons a Skeleton!\n";
+                        fightEnemy(player, std::move(skeleton));
+                    }
+                }
             }
         } else if (choice == 2) {
             std::cout << "You fled!\n";
@@ -75,6 +86,8 @@ void fightEnemy(Player& player, std::unique_ptr<Enemy> enemy) {
             std::cout << "You won!!!\n";
             player.addExperience(enemy->getExpReward());
             std::cout << "You have " << player.getExperience() << " XP\n";
+            player.addGold(enemy->getGoldReward());
+            std::cout << "You have " << player.getGold() << " Gold\n";
         }
     }
 }
@@ -95,6 +108,20 @@ int main(int argc, char *argv[])
     }
     if (player.isAlive()) {
         fightEnemy(player, std::make_unique<GoblinChief>("Shaman"));
+    }
+
+    for (int i = 0 ; i < 3; i++) {
+        auto enemy = getRandomEnemy();
+
+        fightEnemy(player, std::move(enemy));
+        
+        if (!player.isAlive()) { break; }
+    }
+    if (player.isAlive()) {
+        fightEnemy(player, std::make_unique<StoneGolem>("Stone Golem"));
+    }
+    if (player.isAlive()) {
+        fightEnemy(player, std::make_unique<DarkNecromancer>("Malachar"));
     }
     return 0;
 }
