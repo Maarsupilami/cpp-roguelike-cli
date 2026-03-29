@@ -1,6 +1,13 @@
 #pragma once
 #include "character.h"
 
+enum class EnemyType {
+    GOBLIN,
+    SKELETON,
+    TROLL,
+    COUNT
+};
+
 class Enemy : public Character {
     private:
         int experienceReward;
