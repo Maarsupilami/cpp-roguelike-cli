@@ -56,7 +56,11 @@ std::unique_ptr<Enemy> getRandomEnemy() {
 void fightEnemy(Player& player, std::unique_ptr<Enemy> enemy) {
     int choice;
     unsigned short turn = 0;
+
+    std::cout << "\n--- " << enemy->getName() << " appears! ---\n";
+
     while (player.isAlive() && enemy->isAlive()) {
+        std::cout << "\n";
         player.printHpBar();
         enemy->printHpBar();
 
@@ -71,25 +75,31 @@ void fightEnemy(Player& player, std::unique_ptr<Enemy> enemy) {
                     auto* necro = dynamic_cast<DarkNecromancer*>(enemy.get());
                     if (necro) {
                         auto skeleton = necro->summonSkeleton();
-                        std::cout << "Dark Necromancer summons a Skeleton!\n";
+                        std::cout << "\n*** Dark Necromancer summons a Skeleton! ***\n";
                         fightEnemy(player, std::move(skeleton));
                     }
                 }
             }
         } else if (choice == 2) {
-            std::cout << "You fled!\n";
+            std::cout << "\nYou fled!\n";
             break;
         }
 
         if (!player.isAlive()) {
-            std::cout << "You died! Enemy won!\n";
+            std::cout << "\n=== You died! Game over. ===\n";
         }
 
         if (!enemy->isAlive()) {
-            std::cout << "You won!!!\n";
+            std::cout << "\n> " << enemy->getName() << " defeated!\n";
             player.addExperience(enemy->getExpReward());
-            std::cout << "You have " << player.getExperience() << " XP\n";
             player.addGold(enemy->getGoldReward());
+            std::cout << "  XP: " << player.getExperience()
+                      << " | Gold: " << player.getGold()
+                      << " | Level: " << player.getLevel() << "\n";
+        }
+    }
+}
+
 std::unique_ptr<Player> choosePlayer() {
     std::string name;
     int choice = -1;
@@ -132,8 +142,8 @@ int main(int argc, char *argv[])
 
     std::unique_ptr<Player> player = choosePlayer();
 
+    std::cout << "\n========== DUNGEON LEVEL 1 ==========\n";
     for (int i = 0; i < 2; i++) {
-        
         auto enemy = getRandomEnemy();
         fightEnemy(*player, std::move(enemy));
         if (!player->isAlive()) { break; }
@@ -145,8 +155,8 @@ int main(int argc, char *argv[])
 
     if (player->isAlive()) {
         std::cout << "\n========== DUNGEON LEVEL 2 ==========\n";
-    for (int i = 0 ; i < 3; i++) {
-        auto enemy = getRandomEnemy();
+        for (int i = 0 ; i < 3; i++) {
+            auto enemy = getRandomEnemy();
             fightEnemy(*player, std::move(enemy));
             if (!player->isAlive()) { break; }
         }
@@ -155,12 +165,18 @@ int main(int argc, char *argv[])
         std::cout << "\n--- BOSS ---\n";
         fightEnemy(*player, std::make_unique<StoneGolem>("Stone Golem"));
     }
+
     if (player->isAlive()) {
         std::cout << "\n========== DUNGEON LEVEL 3 ==========\n";
+        std::cout << "--- FINAL BOSS ---\n";
         fightEnemy(*player, std::make_unique<DarkNecromancer>("Malachar"));
     }
+
     if (player->isAlive()) {
         std::cout << "\n========== YOU CLEARED THE DUNGEON! ==========\n";
+        std::cout << "Final stats — Level: " << player->getLevel()
+                  << " | XP: " << player->getExperience()
+                  << " | Gold: " << player->getGold() << "\n";
     }
     return 0;
 }
