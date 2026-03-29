@@ -10,3 +10,17 @@ include_directories(src/core)
 
 # The executable
 add_executable(dungeon src/main.cpp)
+
+include(FetchContent)
+FetchContent_Declare(
+    googletest
+    URL https://github.com/google/googletest/archive/refs/tags/v1.14.0.zip
+)
+FetchContent_MakeAvailable(googletest)
+
+include(GoogleTest)
+enable_testing()
+
+add_executable(tests tests/main_test.cpp)
+target_link_libraries(tests gtest_main)
+gtest_discover_tests(tests)
