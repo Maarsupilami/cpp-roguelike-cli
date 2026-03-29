@@ -1,15 +1,17 @@
 # Dungeon RPG
 
-A text-based dungeon crawler built in C++17 as a hands-on OOP learning project.
+A text-based dungeon crawler built in C++23 as a hands-on OOP learning project.
 
-## Features (in progress)
+## Features
 
 - Class hierarchy: `Character` → `Player` / `Enemy` → subclasses
-- Three playable classes: Warrior, Mage, Rogue
+- Three playable classes: Warrior, Mage, Rogue (with class selection)
 - Six enemy types across three dungeon levels
-- Turn-based combat with critical hits
-- Inventory system with usable and equippable items
-- XP-based leveling with stat growth
+- Turn-based combat with critical hits (Rogue)
+- Inventory system with usable and equippable items (in progress)
+- XP-based leveling with per-class stat growth
+- Necromancer summon mechanic
+- Google Test unit tests (FetchContent, no install required)
 
 ## Build
 
@@ -25,15 +27,29 @@ Requires CMake 3.28+ and a C++23-capable compiler (GCC 15+).
 ```
 src/
 ├── main.cpp
-└── entities/
+└── core/
     ├── character.h
     ├── player.h
     ├── enemy.h
+    ├── item.h
     ├── game_constants.h
-    └── classes/
-        ├── warrior.h
-        ├── mage.h
-        └── rogue.h
+    ├── classes/
+    │   ├── warrior.h
+    │   ├── mage.h
+    │   └── rogue.h
+    ├── enemies/
+    │   ├── goblin.h
+    │   ├── skeleton.h
+    │   ├── troll.h
+    │   ├── goblin_chief.h
+    │   ├── stone_golem.h
+    │   └── dark_necromancer.h
+    └── items/
+        ├── potion.h
+        ├── weapon.h
+        └── magic_scroll.h
+tests/
+└── main_test.cpp
 ```
 
 ## Dungeon layout
