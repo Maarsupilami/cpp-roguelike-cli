@@ -11,6 +11,7 @@
 #include "enemies/stone_golem.h"
 #include "enemies/dark_necromancer.h"
 #include "game_constants.h"
+#include "../src/game/combat.h"
 
 // ─── Character base behaviour ────────────────────────────────────────────────
 
@@ -292,4 +293,101 @@ TEST(IronSwordTest, SwapWeaponPutsOldBackInInventory) {
     w.addItem(std::make_unique<IronSword>());
     w.equip("Iron Sword", SlotType::MainHand);
     EXPECT_EQ(w.getInventory().size(), 1u);
+}
+
+// ─── Stacking inventory ───────────────────────────────────────────────────────
+
+TEST(InventoryTest, PotionsStackOnAdd) {
+    Warrior w("T");
+    w.addItem(std::make_unique<HealthPotion>());
+    w.addItem(std::make_unique<HealthPotion>());
+    EXPECT_EQ(w.getInventory().size(), 1u);
+    EXPECT_EQ(w.getInventory()[0]->getQuantity(), 2);
+}
+
+TEST(InventoryTest, WeaponsDoNotStack) {
+    Warrior w("T");
+    w.addItem(std::make_unique<IronSword>());
+    w.addItem(std::make_unique<IronSword>());
+    EXPECT_EQ(w.getInventory().size(), 2u);
+}
+
+TEST(InventoryTest, UseItemDecrementsQuantity) {
+    Warrior w("T");
+    w.takeDamage(50);
+    w.addItem(std::make_unique<HealthPotion>());
+    w.addItem(std::make_unique<HealthPotion>());
+    w.useItem(0);
+    EXPECT_EQ(w.getInventory().size(), 1u);
+    EXPECT_EQ(w.getInventory()[0]->getQuantity(), 1);
+}
+
+TEST(InventoryTest, UseLastPotionRemovesFromInventory) {
+    Warrior w("T");
+    w.takeDamage(50);
+    w.addItem(std::make_unique<HealthPotion>());
+    w.useItem(0);
+    EXPECT_EQ(w.getInventory().size(), 0u);
+}
+
+TEST(InventoryTest, UseItemOutOfRangeReturnsFalse) {
+    Warrior w("T");
+    EXPECT_FALSE(w.useItem(0));
+}
+
+// ─── executeAttack ────────────────────────────────────────────────────────────
+
+TEST(ExecuteAttackTest, DamageDealtIsPositive) {
+    Warrior attacker("T");
+    Goblin target("T");
+    unsigned short turn = 0;
+    auto result = executeAttack(attacker, target, turn);
+    EXPECT_GT(result.damageDealt, 0);
+}
+
+TEST(ExecuteAttackTest, EnemyTakesDamage) {
+    Warrior attacker("T");
+    Goblin target("T");
+    unsigned short turn = 0;
+    executeAttack(attacker, target, turn);
+    EXPECT_LT(target.getHp(), GOBLIN_STATS.hp);
+}
+
+TEST(ExecuteAttackTest, PlayerTakesDamageIfEnemySurvives) {
+    // Warrior vs Troll — Troll has enough HP to survive one hit
+    Warrior attacker("T");
+    Troll target("T");
+    unsigned short turn = 0;
+    executeAttack(attacker, target, turn);
+    EXPECT_LT(attacker.getHp(), WARRIOR_STATS.hp);
+}
+
+TEST(ExecuteAttackTest, NoDamageTakenIfEnemyDies) {
+    // Boost attacker so goblin dies in one hit
+    Warrior attacker("T");
+    Goblin target("T");
+    target.takeDamage(target.getHp() - 1); // leave 1 HP
+    unsigned short turn = 0;
+    auto result = executeAttack(attacker, target, turn);
+    if (!target.isAlive()) {
+        EXPECT_EQ(result.damageTaken, 0);
+    }
+}
+
+TEST(ExecuteAttackTest, NecromancerSummonOnTurnThree) {
+    Warrior attacker("T");
+    DarkNecromancer necro("T");
+    unsigned short turn = 2; // next call will be turn 3
+    auto result = executeAttack(attacker, necro, turn);
+    if (necro.isAlive()) {
+        EXPECT_NE(result.summonedEnemy, nullptr);
+    }
+}
+
+TEST(ExecuteAttackTest, NoSummonOnNonNecromancer) {
+    Warrior attacker("T");
+    Goblin target("T");
+    unsigned short turn = 2;
+    auto result = executeAttack(attacker, target, turn);
+    EXPECT_EQ(result.summonedEnemy, nullptr);
 }
