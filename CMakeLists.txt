@@ -9,7 +9,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 include_directories(src/core)
 
 # The executable
-add_executable(dungeon src/main.cpp src/game/game.cpp)
+add_executable(dungeon src/main.cpp src/game/game.cpp src/game/combat.cpp)
 
 include(FetchContent)
 FetchContent_Declare(
@@ -21,6 +21,6 @@ FetchContent_MakeAvailable(googletest)
 include(GoogleTest)
 enable_testing()
 
-add_executable(tests tests/main_test.cpp)
+add_executable(tests tests/main_test.cpp src/game/combat.cpp)
 target_link_libraries(tests gtest_main)
 gtest_discover_tests(tests)

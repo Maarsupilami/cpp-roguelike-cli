@@ -1,4 +1,5 @@
 #include "game.h"
+#include "combat.h"
 #include <ctime>
 #include <random>
 #include <utility>
@@ -10,7 +11,7 @@
 #include "enemies/troll.h"
 #include "enemies/goblin_chief.h"
 #include "enemies/stone_golem.h"
-#include "enemies/dark_necromancer.h"
+#include "enemies/dark_necromancer.h" // needed for dungeonLoop final boss
 
 /*
  * NOTE: Raw pointer alternative (pre-C++11 / older compilers):
@@ -65,22 +66,14 @@ void Game::fightEnemy(std::unique_ptr<Enemy> enemy) {
         std::cin >> choice;
 
         if (choice == 1) {
-            int dmgToEnemy = player->calculateDamage(*enemy);
-            enemy->takeDamage(dmgToEnemy);
-            std::cout << "  You hit " << enemy->getName() << " for " << dmgToEnemy << " damage.\n";
-
-            if (enemy->isAlive()) {
-                int dmgToPlayer = enemy->calculateDamage(*player);
-                player->takeDamage(dmgToPlayer);
-                std::cout << "  " << enemy->getName() << " hits you for " << dmgToPlayer << " damage.\n";
-                if (++turn % 3 == 0) {
-                    auto* necro = dynamic_cast<DarkNecromancer*>(enemy.get());
-                    if (necro) {
-                        auto skeleton = necro->summonSkeleton();
-                        std::cout << "\n*** Dark Necromancer summons a Skeleton! ***\n";
-                        fightEnemy(std::move(skeleton));
-                    }
-                }
+            auto result = executeAttack(*player, *enemy, turn);
+            std::cout << "  You hit " << enemy->getName() << " for " << result.damageDealt << " damage.\n";
+            if (result.damageTaken > 0) {
+                std::cout << "  " << enemy->getName() << " hits you for " << result.damageTaken << " damage.\n";
+            }
+            if (result.summonedEnemy) {
+                std::cout << "\n*** Dark Necromancer summons a Skeleton! ***\n";
+                fightEnemy(std::move(result.summonedEnemy));
             }
         } else if (choice == 2) {
             if (player->getInventory().empty()) {
