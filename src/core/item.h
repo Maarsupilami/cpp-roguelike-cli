@@ -20,6 +20,7 @@ class Item{
         Item(std::string name, ItemType itemType)
             :   name(name), itemType(itemType) {}
 
+        std::string getName() { return name; };
         virtual void use(Player& player, Enemy* enemy = nullptr) = 0;
         virtual ~Item() = default;
 };
