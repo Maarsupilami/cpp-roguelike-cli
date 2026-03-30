@@ -1,9 +1,22 @@
 #pragma once
+#include "enemy.h"
 #include "item.h"
 
-class Weapon : public Item {
-    public:
-        Weapon() : Item("Iron Swork", ItemType::WEAPON) {};
+enum class WeaponType {
+    SWORD
+};
 
-        
+class Weapon : public Item {
+    protected:
+        WeaponType weaponType;
+        int value;
+    public:
+        Weapon(std::string name, WeaponType weaponType, int value)
+            :   Item(name, ItemType::WEAPON),
+                value(value),
+                weaponType(weaponType) {};
+        WeaponType getWeaponType() const { return weaponType; };
+        int getValue() const { return value; };
+        virtual void use(Player& player, Enemy* enemy = nullptr) = 0;
+        virtual ~Weapon() = default;
 };

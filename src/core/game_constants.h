@@ -39,3 +39,5 @@ inline constexpr EnemyStats TROLL_STATS     = {40, 14, 6, 60, 10};
 inline constexpr EnemyStats GOBLIN_CHIEF_STATS      = {50, 12, 5, 80, 15};
 inline constexpr EnemyStats STONE_GOLEM_STATS       = {80, 18, 10, 150, 25};
 inline constexpr EnemyStats DARK_NECROMANCER_STATS  = {120, 22, 8, 300, 50};
+
+inline constexpr short  IRON_SWORD_DAMAGE   = 5;
