@@ -32,6 +32,10 @@ class Character{
             hp = std::min(maxHp, hp + amount);
         }
 
+        void addAttack(int amount) {
+            attackPower += amount;
+        }
+
         void printHpBar() const {
             int barWidth = 10;
             int filled = (hp * barWidth) / maxHp;
