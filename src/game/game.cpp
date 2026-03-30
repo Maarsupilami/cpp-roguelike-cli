@@ -1,6 +1,7 @@
 #include "game.h"
 #include <ctime>
 #include <random>
+#include <utility>
 #include "classes/warrior.h"
 #include "classes/mage.h"
 #include "classes/rogue.h"
@@ -92,6 +93,12 @@ void Game::fightEnemy(std::unique_ptr<Enemy> enemy) {
             std::cout << "  XP: " << player->getExperience()
                       << " | Gold: " << player->getGold()
                       << " | Level: " << player->getLevel() << "\n";
+
+            auto item = enemy->drop();
+            if (item) {
+                std::cout << "  Dropped: " << item->getName() << "!\n";
+                player->addItem(std::move(item));
+            };
         }
     }
 }

@@ -1,8 +1,8 @@
 #pragma once
-#include "enemy.h"
 #include "item.h"
 #include "player.h"
 
+class Enemy;
 class HealthPotion : public Item {
     public:
         HealthPotion() : Item("Health Potion", ItemType::POTION){};
