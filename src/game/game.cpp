@@ -57,7 +57,7 @@ void Game::fightEnemy(std::unique_ptr<Enemy> enemy) {
     std::cout << "\n--- " << enemy->getName() << " appears! ---\n";
 
     while (player->isAlive() && enemy->isAlive()) {
-        std::cout << "\n";
+        std::cout << "\n─────────────────────────\n";
         player->printHpBar();
         enemy->printHpBar();
 
@@ -65,9 +65,14 @@ void Game::fightEnemy(std::unique_ptr<Enemy> enemy) {
         std::cin >> choice;
 
         if (choice == 1) {
-            enemy->takeDamage(player->calculateDamage(*enemy));
+            int dmgToEnemy = player->calculateDamage(*enemy);
+            enemy->takeDamage(dmgToEnemy);
+            std::cout << "  You hit " << enemy->getName() << " for " << dmgToEnemy << " damage.\n";
+
             if (enemy->isAlive()) {
-                player->takeDamage(enemy->calculateDamage(*player));
+                int dmgToPlayer = enemy->calculateDamage(*player);
+                player->takeDamage(dmgToPlayer);
+                std::cout << "  " << enemy->getName() << " hits you for " << dmgToPlayer << " damage.\n";
                 if (++turn % 3 == 0) {
                     auto* necro = dynamic_cast<DarkNecromancer*>(enemy.get());
                     if (necro) {
