@@ -7,10 +7,10 @@ class Goblin : public Enemy {
         Goblin(std::string name)
             :   Enemy(
                     name,
-                    GOBLIN_HP,
-                    GOBLIN_ATTACK,
-                    GOBLIN_DEFENSE,
-                    GOBLIN_EXP_REWARD,
-                    GOBLIN_GOLD_REWARD
+                    GOBLIN_STATS.hp,
+                    GOBLIN_STATS.attack,
+                    GOBLIN_STATS.defense,
+                    GOBLIN_STATS.expReward,
+                    GOBLIN_STATS.goldReward
                 ) {}
 };

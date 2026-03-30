@@ -7,10 +7,10 @@ class StoneGolem : public Enemy{
         StoneGolem(std::string name)
             :   Enemy(
                     name,
-                    STONE_GOLEM_HP,
-                    STONE_GOLEM_ATTACK,
-                    STONE_GOLEM_DEFENSE,
-                    STONE_GOLEM_EXP_REWARD,
-                    STONE_GOLEM_GOLD_REWARD
+                    STONE_GOLEM_STATS.hp,
+                    STONE_GOLEM_STATS.attack,
+                    STONE_GOLEM_STATS.defense,
+                    STONE_GOLEM_STATS.expReward,
+                    STONE_GOLEM_STATS.goldReward
                 ) {}
 };

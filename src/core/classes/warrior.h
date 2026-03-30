@@ -17,8 +17,8 @@ class Warrior : public Player {
         Warrior(std::string name)
             :   Player(
                     name,
-                    WARRIOR_HP,
-                    WARRIOR_ATTACK,
-                    WARRIOR_DEFENSE,
-                    WARRIOR_CRIT) {}
+                    WARRIOR_STATS.hp,
+                    WARRIOR_STATS.attack,
+                    WARRIOR_STATS.defense,
+                    WARRIOR_STATS.crit) {}
 };

@@ -7,10 +7,10 @@ class Skeleton : public Enemy{
         Skeleton(std::string name)
             :   Enemy(
                     name,
-                    SKELETON_HP,
-                    SKELETON_ATTACK,
-                    SKELETON_DEFENSE,
-                    SKELETON_EXP_REWARD,
-                    SKELETON_GOLD_REWARD
+                    SKELETON_STATS.hp,
+                    SKELETON_STATS.attack,
+                    SKELETON_STATS.defense,
+                    SKELETON_STATS.expReward,
+                    SKELETON_STATS.goldReward
                 ) {}
 };

@@ -19,10 +19,10 @@ class Rogue : public Player {
         Rogue(std::string name)
             :   Player(
                     name,
-                    ROGUE_HP,
-                    ROGUE_ATTACK,
-                    ROGUE_DEFENSE,
-                    ROGUE_CRIT) {}
+                    ROGUE_STATS.hp,
+                    ROGUE_STATS.attack,
+                    ROGUE_STATS.defense,
+                    ROGUE_STATS.crit) {}
         
         int calculateDamage(const Character& target) const override {
             int baseDamage = attackPower - (target.getDefense() / 2) + (rand() % 7 - 3);

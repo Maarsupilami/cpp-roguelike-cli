@@ -7,10 +7,10 @@ class GoblinChief : public Enemy{
         GoblinChief(std::string name)
             :   Enemy(
                     name,
-                    GOBLIN_CHIEF_HP,
-                    GOBLIN_CHIEF_ATTACK,
-                    GOBLIN_CHIEF_DEFENSE,
-                    GOBLIN_CHIEF_EXP_REWARD,
-                    GOBLIN_CHIEF_GOLD_REWARD
+                    GOBLIN_CHIEF_STATS.hp,
+                    GOBLIN_CHIEF_STATS.attack,
+                    GOBLIN_CHIEF_STATS.defense,
+                    GOBLIN_CHIEF_STATS.expReward,
+                    GOBLIN_CHIEF_STATS.goldReward
                 ) {}
 };

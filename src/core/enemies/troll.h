@@ -7,10 +7,10 @@ class Troll : public Enemy {
         Troll(std::string name)
             :   Enemy(
                     name,
-                    TROLL_HP,
-                    TROLL_ATTACK,
-                    TROLL_DEFENSE,
-                    TROLL_EXP_REWARD,
-                    TROLL_GOLD_REWARD
+                    TROLL_STATS.hp,
+                    TROLL_STATS.attack,
+                    TROLL_STATS.defense,
+                    TROLL_STATS.expReward,
+                    TROLL_STATS.goldReward
                 ) {}
 };

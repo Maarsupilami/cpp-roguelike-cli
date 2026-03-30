@@ -17,8 +17,8 @@ class Mage : public Player {
         Mage(std::string name)
             :   Player(
                     name,
-                    MAGE_HP,
-                    MAGE_ATTACK,
-                    MAGE_DEFENSE,
-                    MAGE_CRIT) {}
+                    MAGE_STATS.hp,
+                    MAGE_STATS.attack,
+                    MAGE_STATS.defense,
+                    MAGE_STATS.crit) {}
 };

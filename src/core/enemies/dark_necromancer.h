@@ -9,11 +9,11 @@ class DarkNecromancer : public Enemy{
         DarkNecromancer(std::string name)
             :   Enemy(
                     name,
-                    DARK_NECROMANCER_HP,
-                    DARK_NECROMANCER_ATTACK,
-                    DARK_NECROMANCER_DEFENSE,
-                    DARK_NECROMANCER_EXP_REWARD,
-                    DARK_NECROMANCER_GOLD_REWARD
+                    DARK_NECROMANCER_STATS.hp,
+                    DARK_NECROMANCER_STATS.attack,
+                    DARK_NECROMANCER_STATS.defense,
+                    DARK_NECROMANCER_STATS.expReward,
+                    DARK_NECROMANCER_STATS.goldReward
                 ) {}
         
         std::unique_ptr<Enemy> summonSkeleton() {

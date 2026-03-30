@@ -15,7 +15,7 @@
 TEST(CharacterTest, TakeDamageReducesHp) {
     Warrior w("T");
     w.takeDamage(10);
-    EXPECT_EQ(w.getHp(), WARRIOR_HP - 10);
+    EXPECT_EQ(w.getHp(), WARRIOR_STATS.hp - 10);
 }
 
 TEST(CharacterTest, HpDoesNotGoBelowZero) {
@@ -47,28 +47,28 @@ TEST(CharacterTest, IsDeadAfterFatalDamage) {
 
 TEST(WarriorTest, InitialStats) {
     Warrior w("Hero");
-    EXPECT_EQ(w.getHp(),      WARRIOR_HP);
-    EXPECT_EQ(w.getMaxHp(),   WARRIOR_HP);
-    EXPECT_EQ(w.getAttack(),  WARRIOR_ATTACK);
-    EXPECT_EQ(w.getDefense(), WARRIOR_DEFENSE);
+    EXPECT_EQ(w.getHp(),      WARRIOR_STATS.hp);
+    EXPECT_EQ(w.getMaxHp(),   WARRIOR_STATS.hp);
+    EXPECT_EQ(w.getAttack(),  WARRIOR_STATS.attack);
+    EXPECT_EQ(w.getDefense(), WARRIOR_STATS.defense);
     EXPECT_EQ(w.getLevel(),   1);
 }
 
 TEST(MageTest, InitialStats) {
     Mage m("Hero");
-    EXPECT_EQ(m.getHp(),      MAGE_HP);
-    EXPECT_EQ(m.getMaxHp(),   MAGE_HP);
-    EXPECT_EQ(m.getAttack(),  MAGE_ATTACK);
-    EXPECT_EQ(m.getDefense(), MAGE_DEFENSE);
+    EXPECT_EQ(m.getHp(),      MAGE_STATS.hp);
+    EXPECT_EQ(m.getMaxHp(),   MAGE_STATS.hp);
+    EXPECT_EQ(m.getAttack(),  MAGE_STATS.attack);
+    EXPECT_EQ(m.getDefense(), MAGE_STATS.defense);
     EXPECT_EQ(m.getLevel(),   1);
 }
 
 TEST(RogueTest, InitialStats) {
     Rogue r("Hero");
-    EXPECT_EQ(r.getHp(),      ROGUE_HP);
-    EXPECT_EQ(r.getMaxHp(),   ROGUE_HP);
-    EXPECT_EQ(r.getAttack(),  ROGUE_ATTACK);
-    EXPECT_EQ(r.getDefense(), ROGUE_DEFENSE);
+    EXPECT_EQ(r.getHp(),      ROGUE_STATS.hp);
+    EXPECT_EQ(r.getMaxHp(),   ROGUE_STATS.hp);
+    EXPECT_EQ(r.getAttack(),  ROGUE_STATS.attack);
+    EXPECT_EQ(r.getDefense(), ROGUE_STATS.defense);
     EXPECT_EQ(r.getLevel(),   1);
 }
 
@@ -109,63 +109,63 @@ TEST(PlayerTest, LevelUpIncreasesMaxHp) {
 
 TEST(GoblinTest, InitialStats) {
     Goblin g("Fallen");
-    EXPECT_EQ(g.getHp(),         GOBLIN_HP);
-    EXPECT_EQ(g.getAttack(),     GOBLIN_ATTACK);
-    EXPECT_EQ(g.getDefense(),    GOBLIN_DEFENSE);
-    EXPECT_EQ(g.getExpReward(),  GOBLIN_EXP_REWARD);
-    EXPECT_EQ(g.getGoldReward(), GOBLIN_GOLD_REWARD);
+    EXPECT_EQ(g.getHp(),         GOBLIN_STATS.hp);
+    EXPECT_EQ(g.getAttack(),     GOBLIN_STATS.attack);
+    EXPECT_EQ(g.getDefense(),    GOBLIN_STATS.defense);
+    EXPECT_EQ(g.getExpReward(),  GOBLIN_STATS.expReward);
+    EXPECT_EQ(g.getGoldReward(), GOBLIN_STATS.goldReward);
 }
 
 TEST(SkeletonTest, InitialStats) {
     Skeleton s("Bones");
-    EXPECT_EQ(s.getHp(),         SKELETON_HP);
-    EXPECT_EQ(s.getAttack(),     SKELETON_ATTACK);
-    EXPECT_EQ(s.getDefense(),    SKELETON_DEFENSE);
-    EXPECT_EQ(s.getExpReward(),  SKELETON_EXP_REWARD);
-    EXPECT_EQ(s.getGoldReward(), SKELETON_GOLD_REWARD);
+    EXPECT_EQ(s.getHp(),         SKELETON_STATS.hp);
+    EXPECT_EQ(s.getAttack(),     SKELETON_STATS.attack);
+    EXPECT_EQ(s.getDefense(),    SKELETON_STATS.defense);
+    EXPECT_EQ(s.getExpReward(),  SKELETON_STATS.expReward);
+    EXPECT_EQ(s.getGoldReward(), SKELETON_STATS.goldReward);
 }
 
 TEST(TrollTest, InitialStats) {
     Troll t("Mauler");
-    EXPECT_EQ(t.getHp(),         TROLL_HP);
-    EXPECT_EQ(t.getAttack(),     TROLL_ATTACK);
-    EXPECT_EQ(t.getDefense(),    TROLL_DEFENSE);
-    EXPECT_EQ(t.getExpReward(),  TROLL_EXP_REWARD);
-    EXPECT_EQ(t.getGoldReward(), TROLL_GOLD_REWARD);
+    EXPECT_EQ(t.getHp(),         TROLL_STATS.hp);
+    EXPECT_EQ(t.getAttack(),     TROLL_STATS.attack);
+    EXPECT_EQ(t.getDefense(),    TROLL_STATS.defense);
+    EXPECT_EQ(t.getExpReward(),  TROLL_STATS.expReward);
+    EXPECT_EQ(t.getGoldReward(), TROLL_STATS.goldReward);
 }
 
 TEST(GoblinChiefTest, InitialStats) {
     GoblinChief gc("Shaman");
-    EXPECT_EQ(gc.getHp(),         GOBLIN_CHIEF_HP);
-    EXPECT_EQ(gc.getAttack(),     GOBLIN_CHIEF_ATTACK);
-    EXPECT_EQ(gc.getDefense(),    GOBLIN_CHIEF_DEFENSE);
-    EXPECT_EQ(gc.getExpReward(),  GOBLIN_CHIEF_EXP_REWARD);
-    EXPECT_EQ(gc.getGoldReward(), GOBLIN_CHIEF_GOLD_REWARD);
+    EXPECT_EQ(gc.getHp(),         GOBLIN_CHIEF_STATS.hp);
+    EXPECT_EQ(gc.getAttack(),     GOBLIN_CHIEF_STATS.attack);
+    EXPECT_EQ(gc.getDefense(),    GOBLIN_CHIEF_STATS.defense);
+    EXPECT_EQ(gc.getExpReward(),  GOBLIN_CHIEF_STATS.expReward);
+    EXPECT_EQ(gc.getGoldReward(), GOBLIN_CHIEF_STATS.goldReward);
 }
 
 TEST(StoneGolemTest, InitialStats) {
     StoneGolem sg("Golem");
-    EXPECT_EQ(sg.getHp(),         STONE_GOLEM_HP);
-    EXPECT_EQ(sg.getAttack(),     STONE_GOLEM_ATTACK);
-    EXPECT_EQ(sg.getDefense(),    STONE_GOLEM_DEFENSE);
-    EXPECT_EQ(sg.getExpReward(),  STONE_GOLEM_EXP_REWARD);
-    EXPECT_EQ(sg.getGoldReward(), STONE_GOLEM_GOLD_REWARD);
+    EXPECT_EQ(sg.getHp(),         STONE_GOLEM_STATS.hp);
+    EXPECT_EQ(sg.getAttack(),     STONE_GOLEM_STATS.attack);
+    EXPECT_EQ(sg.getDefense(),    STONE_GOLEM_STATS.defense);
+    EXPECT_EQ(sg.getExpReward(),  STONE_GOLEM_STATS.expReward);
+    EXPECT_EQ(sg.getGoldReward(), STONE_GOLEM_STATS.goldReward);
 }
 
 TEST(DarkNecromancerTest, InitialStats) {
     DarkNecromancer dn("Malachar");
-    EXPECT_EQ(dn.getHp(),         DARK_NECROMANCER_HP);
-    EXPECT_EQ(dn.getAttack(),     DARK_NECROMANCER_ATTACK);
-    EXPECT_EQ(dn.getDefense(),    DARK_NECROMANCER_DEFENSE);
-    EXPECT_EQ(dn.getExpReward(),  DARK_NECROMANCER_EXP_REWARD);
-    EXPECT_EQ(dn.getGoldReward(), DARK_NECROMANCER_GOLD_REWARD);
+    EXPECT_EQ(dn.getHp(),         DARK_NECROMANCER_STATS.hp);
+    EXPECT_EQ(dn.getAttack(),     DARK_NECROMANCER_STATS.attack);
+    EXPECT_EQ(dn.getDefense(),    DARK_NECROMANCER_STATS.defense);
+    EXPECT_EQ(dn.getExpReward(),  DARK_NECROMANCER_STATS.expReward);
+    EXPECT_EQ(dn.getGoldReward(), DARK_NECROMANCER_STATS.goldReward);
 }
 
 TEST(DarkNecromancerTest, SummonSkeletonIsAlive) {
     DarkNecromancer dn("Malachar");
     auto skeleton = dn.summonSkeleton();
     EXPECT_TRUE(skeleton->isAlive());
-    EXPECT_EQ(skeleton->getHp(), SKELETON_HP);
+    EXPECT_EQ(skeleton->getHp(), SKELETON_STATS.hp);
 }
 
 // ─── Combat damage range ─────────────────────────────────────────────────────
@@ -174,16 +174,16 @@ TEST(CombatTest, WarriorDamageVsGoblinIsInRange) {
     Warrior attacker("T");
     Goblin target("T");
     int dmg = attacker.calculateDamage(target);
-    EXPECT_GE(dmg, WARRIOR_ATTACK - GOBLIN_DEFENSE / 2 - 3);
-    EXPECT_LE(dmg, WARRIOR_ATTACK - GOBLIN_DEFENSE / 2 + 3);
+    EXPECT_GE(dmg, WARRIOR_STATS.attack - GOBLIN_STATS.defense / 2 - 3);
+    EXPECT_LE(dmg, WARRIOR_STATS.attack - GOBLIN_STATS.defense / 2 + 3);
 }
 
 TEST(CombatTest, MageDamageVsGoblinIsInRange) {
     Mage attacker("T");
     Goblin target("T");
     int dmg = attacker.calculateDamage(target);
-    EXPECT_GE(dmg, MAGE_ATTACK - GOBLIN_DEFENSE / 2 - 3);
-    EXPECT_LE(dmg, MAGE_ATTACK - GOBLIN_DEFENSE / 2 + 3);
+    EXPECT_GE(dmg, MAGE_STATS.attack - GOBLIN_STATS.defense / 2 - 3);
+    EXPECT_LE(dmg, MAGE_STATS.attack - GOBLIN_STATS.defense / 2 + 3);
 }
 
 TEST(CombatTest, RogueDamageVsGoblinIsNeverNegative) {
@@ -198,7 +198,7 @@ TEST(CombatTest, RogueDamageVsGoblinIsNeverNegative) {
 TEST(CombatTest, RogueCritDamageNeverExceedsDoubleMax) {
     Rogue attacker("T");
     Goblin target("T");
-    int maxNormal = ROGUE_ATTACK - GOBLIN_DEFENSE / 2 + 3;
+    int maxNormal = ROGUE_STATS.attack - GOBLIN_STATS.defense / 2 + 3;
     for (int i = 0; i < 100; i++) {
         EXPECT_LE(attacker.calculateDamage(target), maxNormal * 2);
     }
@@ -213,7 +213,7 @@ TEST(WarriorTest, LevelUpStats) {
     w.addExperience(100);
     EXPECT_EQ(w.getAttack(),  atkBefore + 2);
     EXPECT_EQ(w.getDefense(), defBefore + 2);
-    EXPECT_EQ(w.getMaxHp(),   WARRIOR_HP + 10);
+    EXPECT_EQ(w.getMaxHp(),   WARRIOR_STATS.hp + 10);
 }
 
 TEST(MageTest, LevelUpStats) {
@@ -223,7 +223,7 @@ TEST(MageTest, LevelUpStats) {
     m.addExperience(100);
     EXPECT_EQ(m.getAttack(),  atkBefore + 4);
     EXPECT_EQ(m.getDefense(), defBefore + 1);
-    EXPECT_EQ(m.getMaxHp(),   MAGE_HP + 7);
+    EXPECT_EQ(m.getMaxHp(),   MAGE_STATS.hp + 7);
 }
 
 TEST(RogueTest, LevelUpStats) {
@@ -233,7 +233,7 @@ TEST(RogueTest, LevelUpStats) {
     r.addExperience(100);
     EXPECT_EQ(r.getAttack(),  atkBefore + 3);
     EXPECT_EQ(r.getDefense(), defBefore + 1);
-    EXPECT_EQ(r.getMaxHp(),   ROGUE_HP + 8);
+    EXPECT_EQ(r.getMaxHp(),   ROGUE_STATS.hp + 8);
 }
 
 TEST(PlayerTest, LevelUpHealsToFullHp) {
