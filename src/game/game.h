@@ -1,14 +1,5 @@
 #pragma once
 #include <memory>
-#include "classes/warrior.h"
-#include "classes/mage.h"
-#include "classes/rogue.h"
-#include "enemies/goblin.h"
-#include "enemies/skeleton.h"
-#include "enemies/troll.h"
-#include "enemies/goblin_chief.h"
-#include "enemies/stone_golem.h"
-#include "enemies/dark_necromancer.h"
 #include "player.h"
 #include "enemy.h"
 

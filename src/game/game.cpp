@@ -1,6 +1,15 @@
 #include "game.h"
 #include <ctime>
 #include <random>
+#include "classes/warrior.h"
+#include "classes/mage.h"
+#include "classes/rogue.h"
+#include "enemies/goblin.h"
+#include "enemies/skeleton.h"
+#include "enemies/troll.h"
+#include "enemies/goblin_chief.h"
+#include "enemies/stone_golem.h"
+#include "enemies/dark_necromancer.h"
 
 /*
  * NOTE: Raw pointer alternative (pre-C++11 / older compilers):
