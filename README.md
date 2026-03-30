@@ -8,7 +8,7 @@ A text-based dungeon crawler built in C++23 as a hands-on OOP learning project.
 - Three playable classes: Warrior, Mage, Rogue (with class selection)
 - Six enemy types across three dungeon levels
 - Turn-based combat with critical hits (Rogue)
-- Inventory system with usable and equippable items (in progress)
+- Inventory system with usable and equippable items
 - XP-based leveling with per-class stat growth
 - Necromancer summon mechanic
 - Google Test unit tests (FetchContent, no install required)
@@ -27,6 +27,9 @@ Requires CMake 3.28+ and a C++23-capable compiler (GCC 15+).
 ```
 src/
 ├── main.cpp
+├── game/
+│   ├── game.h
+│   └── game.cpp
 └── core/
     ├── character.h
     ├── player.h
