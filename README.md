@@ -7,8 +7,12 @@ A text-based dungeon crawler built in C++23 as a hands-on OOP learning project.
 - Class hierarchy: `Character` → `Player` / `Enemy` → subclasses
 - Three playable classes: Warrior, Mage, Rogue (with class selection)
 - Six enemy types across three dungeon levels
-- Turn-based combat with critical hits (Rogue)
-- Inventory system with usable and equippable items
+- Turn-based combat with damage feedback and critical hits (Rogue)
+- Stacking inventory: consumables of the same type merge into one slot with quantity
+- Item use in combat: potions, weapons (auto-equip to MainHand)
+- Item descriptions per type (`getDescription()` virtual method)
+- 30% enemy item drop chance on death
+- Equip system: MainHand / OffHand slots, swap returns old weapon to inventory
 - XP-based leveling with per-class stat growth
 - Necromancer summon mechanic
 - Google Test unit tests (FetchContent, no install required)
