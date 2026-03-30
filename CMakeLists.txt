@@ -9,7 +9,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 include_directories(src/core)
 
 # The executable
-add_executable(dungeon src/main.cpp)
+add_executable(dungeon src/main.cpp src/game/game.cpp)
 
 include(FetchContent)
 FetchContent_Declare(
