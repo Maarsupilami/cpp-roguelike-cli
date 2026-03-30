@@ -61,7 +61,7 @@ void Game::fightEnemy(std::unique_ptr<Enemy> enemy) {
         player->printHpBar();
         enemy->printHpBar();
 
-        std::cout << "\n1. Attack\n2. Flee\n> ";
+        std::cout << "\n1. Attack\n2. Use item\n3. Flee\n> ";
         std::cin >> choice;
 
         if (choice == 1) {
@@ -78,6 +78,24 @@ void Game::fightEnemy(std::unique_ptr<Enemy> enemy) {
                 }
             }
         } else if (choice == 2) {
+            if (player->getInventory().empty()) {
+                std::cout << "Inventory is empty!\n";
+                continue;
+            }
+            int itemChoice;
+            const auto& inventory = player->getInventory();
+            std::cout << "0. Cancel\n";
+            for (int i = 0; i < (int)inventory.size(); i++) {
+                std::cout << i + 1 << ". " << inventory[i]->getName();
+                if (!inventory[i]->getDescription().empty()) std::cout << " " << inventory[i]->getDescription();
+                if (inventory[i]->getQuantity() > 1) std::cout << " x" << inventory[i]->getQuantity();
+                std::cout << "\n";
+            }
+            std::cout << "Choose item: ";
+            std::cin >> itemChoice;
+            if (itemChoice == 0) { continue; }
+            player->useItem(itemChoice - 1);
+        } else if (choice == 3) {
             std::cout << "\nYou fled!\n";
             break;
         }

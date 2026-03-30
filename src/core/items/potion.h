@@ -10,4 +10,6 @@ class HealthPotion : public Item {
         void use(Player& player, Enemy* enemy = nullptr) override {
             player.heal(30);
         }
+
+        std::string getDescription() const override { return "(heals 30 HP)"; }
 };

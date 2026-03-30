@@ -56,9 +56,39 @@ class Player : public Character {
             }
         }
 
-        void addItem(std::unique_ptr<Item> item){
+        void addItem(std::unique_ptr<Item> item) {
+            // Weapons and armor are never stacked
+            if (item->getItemType() != ItemType::WEAPON && item->getItemType() != ItemType::ARMOR) {
+                auto it = std::find_if(inventory.begin(), inventory.end(),
+                    [&item](const std::unique_ptr<Item>& i) {
+                        return i->getName() == item->getName();
+                    });
+                if (it != inventory.end()) {
+                    (*it)->addQuantity(1);
+                    return;
+                }
+            }
             inventory.push_back(std::move(item));
         }
+
+        bool useItem(int index) {
+            if (index < 0 || index >= (int)inventory.size()) return false;
+
+            auto& item = inventory[index];
+
+            if (item->getItemType() == ItemType::WEAPON) {
+                return equip(item->getName(), SlotType::MainHand);
+            }
+
+            // Consumable: decrement quantity, erase only when empty
+            item->use(*this);
+            if (item->getQuantity() <= 1) {
+                inventory.erase(inventory.begin() + index);
+            } else {
+                item->addQuantity(-1);
+            }
+            return true;
+        };
 
         bool equip(const std::string& weaponName, SlotType slot) {
             // Search in the inventory
