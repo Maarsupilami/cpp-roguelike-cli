@@ -3,6 +3,8 @@
 #include "classes/mage.h"
 #include "classes/rogue.h"
 #include "enemies/goblin.h"
+#include "items/potion.h"
+#include "items/weapon_types/sword/iron_sword.h"
 #include "enemies/skeleton.h"
 #include "enemies/troll.h"
 #include "enemies/goblin_chief.h"
@@ -241,4 +243,53 @@ TEST(PlayerTest, LevelUpHealsToFullHp) {
     w.takeDamage(50);
     w.addExperience(100);
     EXPECT_EQ(w.getHp(), w.getMaxHp());
+}
+
+// ─── Items ───────────────────────────────────────────────────────────────────
+
+TEST(HealthPotionTest, HealsPlayer) {
+    Warrior w("T");
+    w.takeDamage(50);
+    int hpBefore = w.getHp();
+    HealthPotion potion;
+    potion.use(w);
+    EXPECT_EQ(w.getHp(), hpBefore + 30);
+}
+
+TEST(HealthPotionTest, DoesNotExceedMaxHp) {
+    Warrior w("T");
+    w.takeDamage(10);
+    HealthPotion potion;
+    potion.use(w);
+    EXPECT_LE(w.getHp(), w.getMaxHp());
+}
+
+TEST(IronSwordTest, EquipsToMainHand) {
+    Warrior w("T");
+    w.addItem(std::make_unique<IronSword>());
+    bool result = w.equip("Iron Sword", SlotType::MainHand);
+    EXPECT_TRUE(result);
+    EXPECT_NE(w.getEquipped(SlotType::MainHand), nullptr);
+}
+
+TEST(IronSwordTest, EquipRemovesFromInventory) {
+    Warrior w("T");
+    w.addItem(std::make_unique<IronSword>());
+    w.equip("Iron Sword", SlotType::MainHand);
+    EXPECT_EQ(w.getInventory().size(), 0u);
+}
+
+TEST(IronSwordTest, EquipFailsIfNotInInventory) {
+    Warrior w("T");
+    bool result = w.equip("Iron Sword", SlotType::MainHand);
+    EXPECT_FALSE(result);
+}
+
+TEST(IronSwordTest, SwapWeaponPutsOldBackInInventory) {
+    Warrior w("T");
+    w.addItem(std::make_unique<IronSword>());
+    w.equip("Iron Sword", SlotType::MainHand);
+    w.addItem(std::make_unique<IronSword>());
+    w.equip("Iron Sword", SlotType::MainHand);
+    EXPECT_EQ(w.getInventory().size(), 1u);
 }
