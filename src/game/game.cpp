@@ -103,7 +103,7 @@ void Game::choosePlayer() {
     std::cout << "Please type your name: " << "\n";
     std::cin >> name;
 
-    while (choice <= 0 || static_cast<PlayerType>(choice) >= PlayerType::COUNT) {
+    while (choice <= 0 || static_cast<PlayerType>(choice) > PlayerType::COUNT) {
         std::cout << "Please choose a cast!" << "\n";
         std::cout << "\t1. Warrior" << "\n";
         std::cout << "\t2. Mage" << "\n";
