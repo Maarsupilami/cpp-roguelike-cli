@@ -92,7 +92,7 @@ void Game::fightEnemy(std::unique_ptr<Enemy> enemy) {
             std::cout << "Choose item: ";
             std::cin >> itemChoice;
             if (itemChoice == 0) { continue; }
-            player->useItem(itemChoice - 1);
+            player->useItem(itemChoice - 1, enemy.get());
         } else if (choice == 3) {
             std::cout << "\nYou fled!\n";
             break;

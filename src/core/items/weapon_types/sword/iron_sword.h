@@ -1,3 +1,4 @@
+#pragma once
 #include "sword.h"
 #include "player.h"
 #include "game_constants.h"

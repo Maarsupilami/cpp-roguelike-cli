@@ -71,7 +71,7 @@ class Player : public Character {
             inventory.push_back(std::move(item));
         }
 
-        bool useItem(int index) {
+        bool useItem(int index, Enemy* enemy = nullptr) {
             if (index < 0 || index >= (int)inventory.size()) return false;
 
             auto& item = inventory[index];
@@ -81,7 +81,7 @@ class Player : public Character {
             }
 
             // Consumable: decrement quantity, erase only when empty
-            item->use(*this);
+            item->use(*this, enemy);
             if (item->getQuantity() <= 1) {
                 inventory.erase(inventory.begin() + index);
             } else {
