@@ -1,6 +1,7 @@
 #include "game.h"
 #include "combat.h"
 #include <ctime>
+#include <memory>
 #include <random>
 #include <utility>
 #include "classes/warrior.h"
@@ -51,6 +52,26 @@ std::unique_ptr<Enemy> Game::getRandomEnemy() {
     return enemy;
 }
 
+void Game::showInventoryMenu() {
+    if (player->getInventory().empty()) {
+        std::cout << "Inventory is empty!" << "\n";
+        return;
+    };
+    int itemChoice;
+    const auto& inventory = player->getInventory();
+    std::cout << "0. Cancel\n";
+    for (int i = 0; i < (int)inventory.size(); i++) {
+        std::cout << i + 1 << ". " << inventory[i]->getName();
+        if (!inventory[i]->getDescription().empty()) std::cout << " " << inventory[i]->getDescription();
+        if (inventory[i]->getQuantity() > 1) std::cout << " x" << inventory[i]->getQuantity();
+        std::cout << "\n";
+    }
+    std::cout << "Choose item: ";
+    std::cin >> itemChoice;
+    if (itemChoice == 0) { return; }
+    player->useItem(itemChoice - 1, nullptr);
+};
+
 void Game::fightEnemy(std::unique_ptr<Enemy> enemy) {
     int choice;
     unsigned short turn = 0;
@@ -76,23 +97,7 @@ void Game::fightEnemy(std::unique_ptr<Enemy> enemy) {
                 fightEnemy(std::move(result.summonedEnemy));
             }
         } else if (choice == 2) {
-            if (player->getInventory().empty()) {
-                std::cout << "Inventory is empty!\n";
-                continue;
-            }
-            int itemChoice;
-            const auto& inventory = player->getInventory();
-            std::cout << "0. Cancel\n";
-            for (int i = 0; i < (int)inventory.size(); i++) {
-                std::cout << i + 1 << ". " << inventory[i]->getName();
-                if (!inventory[i]->getDescription().empty()) std::cout << " " << inventory[i]->getDescription();
-                if (inventory[i]->getQuantity() > 1) std::cout << " x" << inventory[i]->getQuantity();
-                std::cout << "\n";
-            }
-            std::cout << "Choose item: ";
-            std::cin >> itemChoice;
-            if (itemChoice == 0) { continue; }
-            player->useItem(itemChoice - 1, enemy.get());
+            showInventoryMenu();
         } else if (choice == 3) {
             std::cout << "\nYou fled!\n";
             break;
@@ -157,6 +162,7 @@ void Game::dungeonLoop() {
         auto enemy = getRandomEnemy();
         fightEnemy(std::move(enemy));
         if (!player->isAlive()) { break; }
+        showInventoryMenu();
     }
     if (player->isAlive()) {
         std::cout << "\n--- MINI-BOSS ---\n";
@@ -169,6 +175,7 @@ void Game::dungeonLoop() {
             auto enemy = getRandomEnemy();
             fightEnemy(std::move(enemy));
             if (!player->isAlive()) { break; }
+            showInventoryMenu();
         }
     }
     if (player->isAlive()) {
